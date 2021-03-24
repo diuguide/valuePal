@@ -1,0 +1,26 @@
+{
+  "name": "valuepal",
+  "version": "1.0.0",
+  "description": "A stock analysis tool",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diuguide/valuePal.git"
+  },
+  "author": "Everett Diuguid",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/diuguide/valuePal/issues"
+  },
+  "homepage": "https://github.com/diuguide/valuePal#readme",
+  "dependencies": {
+    "concurrently": "^6.0.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.2",
+    "nodemon": "^2.0.7"
+  }
+}
