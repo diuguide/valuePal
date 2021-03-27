@@ -3,7 +3,7 @@ const router = express.Router();
 const pool = require("../../database");
 
 //Create New user
-router.post("/user", async (req, res) => {
+router.post("/add", async (req, res) => {
   try {
     const { username, password } = req.body;
     const newUser = await pool.query(
@@ -27,23 +27,39 @@ router.get("/", async (req, res) => {
 });
 
 //Get user by username
-router.get('/:username', async (req, res) => {
+router.get("/user/:username", async (req, res) => {
+  try {
+    const user = await pool.query(
+      `SELECT * FROM users WHERE username=${req.params.username}`
+    );
+    res.json(user);
+  } catch (error) {
+    console.error(error.message);
+  }
+});
+
+//update username password
+router.put("/changePass/:username", async (req, res) => {
     try {
-        const user = await pool.query(`SELECT * FROM users WHERE username=${req.params.username}`);
-        res.json(user);
-    } catch (error) {
-        console.error(error.message);
-    }
+        console.log(req.body.password, req.params.username);
+    const changePass = await pool.query(
+      `UPDATE users SET password=$1 WHERE username=$2`, [req.body.password, req.params.username]);
+    res.json(changePass);
+  } catch (error) {
+    console.error(error.messages);
+  }
 });
 
 //Delete user
 router.delete("/delete/:id", async (req, res) => {
-    try {
-        const deletedUser = await pool.query(`DELETE FROM users WHERE user_id=${req.params.id}`)
-        res.json(deletedUser);
-    } catch (err) {
-        console.error(err.message)
-    }
+  try {
+    const deletedUser = await pool.query(
+      `DELETE FROM users WHERE user_id=${req.params.id}`
+    );
+    res.json(deletedUser);
+  } catch (err) {
+    console.error(err.message);
+  }
 });
 
 module.exports = router;
