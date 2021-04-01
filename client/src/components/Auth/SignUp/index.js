@@ -1,10 +1,12 @@
 import { Form, Button, Col, Row, Container, Alert } from "react-bootstrap";
 import axios from "axios";
 import { useState } from "react";
+import { useHistory } from 'react-router-dom';
 import Loader from "../../Loader";
 
 const SignUp = () => {
-  const [isLoading, setIsLoading] = useState(true);
+  const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
   const [show, setShow] = useState(false);
   const [error, setError] = useState('')
   const [accountCreds, setAccountCreds] = useState({
@@ -22,7 +24,10 @@ const SignUp = () => {
     setShow(false);
     if (accountCreds.password === accountCreds.passwordCheck) {
       setIsLoading(true);
-      console.log('Ok');
+      axios.post('/api/add', accountCreds).then(res => {
+        console.log(res)
+        history.push('/');
+      });
     } else {
       setError('Passwords do not match');
       setShow(true);
@@ -41,8 +46,8 @@ const SignUp = () => {
                 <Form.Group>
                   <Form.Control
                     type="email"
-                    id="email"
-                    name="email"
+                    id="username"
+                    name="username"
                     value={accountCreds.username}
                     onChange={handleChange}
                     placeholder="Enter email"
