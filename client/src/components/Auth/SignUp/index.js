@@ -20,10 +20,10 @@ const SignUp = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     setError('');
     setShow(false);
     if (accountCreds.password === accountCreds.passwordCheck) {
-      setIsLoading(true);
       axios.post('/api/add', accountCreds).then(res => {
         console.log(res)
         history.push('/');

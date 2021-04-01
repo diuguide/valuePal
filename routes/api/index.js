@@ -30,20 +30,35 @@ router.get("/", async (req, res) => {
 router.get("/user/:username", async (req, res) => {
   try {
     const user = await pool.query(
-      `SELECT * FROM users WHERE username=${req.params.username}`
+      `SELECT * FROM users WHERE username='${req.params.username}'`
     );
-    res.json(user);
+    console.log(user);
+    if (user.rows[0].username === req.params.username) {
+      console.log("user validated");
+      res.json({
+        msg: "User is validated",
+        code: 200,
+        username: user.rows[0].username,
+      });
+    }
   } catch (error) {
     console.error(error.message);
+    res.json({
+      code: 400,
+      msg: "Sorry, that user does not exsist. Please create an account",
+    });
   }
 });
 
 //update username password
 router.put("/changePass/:username", async (req, res) => {
-    try {
-        console.log(req.body.password, req.params.username);
+  try {
+    console.log(req.body.password, req.params.username);
     const changePass = await pool.query(
-      `UPDATE users SET password=$1 WHERE username=$2`, [req.body.password, req.params.username]);
+      `UPDATE users SET password=$1 WHERE username=$2`,
+      [req.body.password, req.params.username]
+    );
+
     res.json(changePass);
   } catch (error) {
     console.error(error.messages);
