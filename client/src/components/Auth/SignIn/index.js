@@ -14,7 +14,6 @@ const SignIn = () => {
               md={5}
               lg={4}
               className="m-2 bg-dark p-4"
-              style={{ height: "250px" }}
             >
               <Form>
                 <Form.Group controlId="formBasicEmail">

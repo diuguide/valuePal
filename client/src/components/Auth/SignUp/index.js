@@ -1,8 +1,10 @@
 import { Form, Button, Col, Row, Container, Alert } from "react-bootstrap";
 import axios from "axios";
 import { useState } from "react";
+import Loader from "../../Loader";
 
 const SignUp = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [show, setShow] = useState(false);
   const [error, setError] = useState('')
   const [accountCreds, setAccountCreds] = useState({
@@ -16,9 +18,13 @@ const SignUp = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    setError('');
+    setShow(false);
     if (accountCreds.password === accountCreds.passwordCheck) {
+      setIsLoading(true);
       console.log('Ok');
     } else {
+      setError('Passwords do not match');
       setShow(true);
     }
   };
@@ -30,12 +36,7 @@ const SignUp = () => {
       >
         <Col>
           <Row className="d-flex justify-content-center align-content-center">
-            <Col
-              xs={10}
-              md={5}
-              lg={4}
-              className="m-2 bg-dark p-4"
-            >
+            <Col xs={10} md={5} lg={4} className="m-2 bg-dark p-4">
               <Form>
                 <Form.Group>
                   <Form.Control
@@ -73,12 +74,12 @@ const SignUp = () => {
                   type="submit"
                   block
                 >
-                  Create
+                  {isLoading ? (
+                    <Loader />
+                  ) : <div>Create</div>}
                 </Button>
                 <Alert show={show} variant="danger" className="mt-3">
-                  <Alert>
-                    Passwords Do not match
-                  </Alert>
+                  <Alert>{error}</Alert>
                 </Alert>
               </Form>
             </Col>
