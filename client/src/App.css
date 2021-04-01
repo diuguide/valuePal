@@ -1,3 +1,13 @@
-.helloWorld {
+.createAccount {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
   text-align: center;
+  border-radius: 5px;
+  margin-top: 15px;
+  text-decoration: none;
+}
+.createAccount:hover {
+  text-decoration: none;
 }
