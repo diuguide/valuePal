@@ -1,67 +1,75 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../../database");
+const bcrypt = require("bcrypt");
 
 //Create New user
 router.post("/add", async (req, res) => {
+  const { username, password } = req.body;
   try {
-    const { username, password } = req.body;
-    const newUser = await pool.query(
-      `INSERT INTO users (username, password) VALUES($1, $2)`,
-      [username, password]
-    );
-    res.json(newUser);
-  } catch (err) {
-    console.error(err.message);
-  }
-});
-
-//Get all users
-router.get("/", async (req, res) => {
-  try {
-    const allUsers = await pool.query(`SELECT * FROM users`);
-    res.json(allUsers.rows);
-  } catch (err) {
-    console.error(err.message);
+    await pool.query(`SELECT username FROM users`).then((data) => {
+      const response = data.rows;
+      let userArray = [];
+      let newPassword;
+      bcrypt.genSalt(5, (err, salt) => {
+        bcrypt.hash(password, salt, (err, hash) => {
+          if (err) throw err;
+          newPassword = hash;
+          response.forEach((keys) => {
+            userArray.push(keys.username);
+          });
+          if (userArray.includes(username)) {
+            res.json({
+              code: 300,
+              msg: "Username is taken",
+            });
+          } else {
+            pool
+              .query(`INSERT INTO users (username, password) VALUES($1, $2)`, [
+                username,
+                newPassword,
+              ])
+              .then((data) => {
+                res.json({
+                  code: 200,
+                  msg: "Username added to database",
+                });
+              })
+              .catch((err) => console.log(err));
+          }
+        });
+      });
+    });
+  } catch (error) {
+    console.error(error.message);
   }
 });
 
 //Get user by username
-router.get("/user/:username", async (req, res) => {
+router.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+  let validatePass = false;
   try {
     const user = await pool.query(
-      `SELECT * FROM users WHERE username='${req.params.username}'`
+      `SELECT * FROM users WHERE username='${username}'`
     );
-    console.log(user);
-    if (user.rows[0].username === req.params.username) {
-      console.log("user validated");
-      res.json({
-        msg: "User is validated",
-        code: 200,
-        username: user.rows[0].username,
-      });
-    }
+    bcrypt.compare(password, user.rows[0].password).then((isMatch) => {
+      if (!isMatch) return res.json({ code: 400, msg: "Incorrect Password" });
+      validatePass = true;
+      if (user.rows[0].username === username && validatePass) {
+        res.json({
+          msg: "User is validated",
+          code: 200,
+          username: user.rows[0].username,
+        });
+      } else {
+        res.json({
+          code: 400,
+        });
+      }
+    });
   } catch (error) {
     console.error(error.message);
-    res.json({
-      code: 400,
-      msg: "Sorry, that user does not exsist. Please create an account",
-    });
-  }
-});
-
-//update username password
-router.put("/changePass/:username", async (req, res) => {
-  try {
-    console.log(req.body.password, req.params.username);
-    const changePass = await pool.query(
-      `UPDATE users SET password=$1 WHERE username=$2`,
-      [req.body.password, req.params.username]
-    );
-
-    res.json(changePass);
-  } catch (error) {
-    console.error(error.messages);
   }
 });
 

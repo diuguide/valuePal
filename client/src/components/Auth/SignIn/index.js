@@ -24,7 +24,7 @@ const SignIn = () => {
     setIsLoading(true);
     setError('');
     setShowError(false);
-    axios.get(`/api/user/${loginCreds.username.toString()}`).then(res => {
+    axios.post(`/api/login`, loginCreds).then(res => {
       console.log(res);
       if (res.data.code === 200) {
         setError('Success!');

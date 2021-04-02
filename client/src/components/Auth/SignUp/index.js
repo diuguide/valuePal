@@ -26,7 +26,14 @@ const SignUp = () => {
     if (accountCreds.password === accountCreds.passwordCheck) {
       axios.post('/api/add', accountCreds).then(res => {
         console.log(res)
-        history.push('/');
+        if (res.data.code === 300) {
+          setIsLoading(false);
+          setError('Email already taken, please use a different email');
+          setShow(true);
+        } else if (res.data.code === 200) {
+          history.push('/');
+        }
+        
       });
     } else {
       setError('Passwords do not match');
