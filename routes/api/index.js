@@ -53,7 +53,6 @@ router.post("/login", async (req, res) => {
     const user = await pool.query(
       `SELECT * FROM users WHERE username='${username}'`
     );
-    console.log(user);
     bcrypt.compare(password, user.rows[0].password).then((isMatch) => {
       if (!isMatch) return res.json({ code: 400, msg: "Incorrect Password" });
       validatePass = true;

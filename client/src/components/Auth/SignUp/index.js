@@ -32,7 +32,6 @@ const SignUp = () => {
 
     if (accountCreds.password === accountCreds.passwordCheck) {
       axios.post("/api/add", accountCreds).then((res) => {
-        console.log(res);
         if (res.data.code === 300) {
           dispatch(isLoaded());
           dispatch(usernameTaken());

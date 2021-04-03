@@ -31,7 +31,6 @@ const SignIn = () => {
     e.preventDefault();
     dispatch(isLoading());
     axios.post(`/api/login`, loginCreds).then(res => {
-      console.log(res);
       if (res.data.code === 200) {
         dispatch(loggedIn(loginCreds.username))
         dispatch(clearErrors());
