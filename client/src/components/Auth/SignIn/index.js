@@ -5,16 +5,18 @@ import Loader from "../../Loader";
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
-import { isLoading, username, isAuthenticated, authState } from "../../../features/auth/authSlice";
+import { isLoading, loggedIn, loggedOut, authState } from "../../../features/auth/authSlice";
+import { loginFailed, errorState } from "../../../features/error/errorSlice";
 
 
 const SignIn = () => {
   const history = useHistory();
-  const state = useSelector(authState);
-  console.log("authState: ", state);
-  const [isLoading, setIsLoading] = useState(false);
-  const [showError, setShowError] = useState(false);
-  const [error, setError] = useState('');
+
+  const auth = useSelector(authState);
+  const error = useSelector(errorState);
+
+  const dispatch = useDispatch();
+  
   const [loginCreds, setLoginCreds] = useState({
     username: '',
     password: ''
@@ -25,19 +27,15 @@ const SignIn = () => {
   }
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    setError('');
-    setShowError(false);
+    dispatch(isLoading());
     axios.post(`/api/login`, loginCreds).then(res => {
       console.log(res);
       if (res.data.code === 200) {
-        setError('Success!');
-        setShowError(true);
+        dispatch(loggedIn(loginCreds.username))
         history.push('/Main');
       } else if (res.data.code === 400) {
-        setError('Login failure, please check your credentials and try again.');
-        setShowError(true);
-        setIsLoading(false);
+        dispatch(loginFailed());
+        dispatch(loggedOut());
       }
     });
   }
@@ -73,12 +71,12 @@ const SignIn = () => {
                   />
                 </Form.Group>
                 <Button onClick={handleSubmit} variant="primary" type="submit" block>
-                   {isLoading ? (
+                   {auth.isLoading ? (
                     <Loader />
                   ) : <div>Login</div>}
                 </Button>
-                <Alert show={showError} variant="danger" className="mt-3">
-                  <Alert>{error}</Alert>
+                <Alert show={error.show} variant="danger" className="mt-3">
+                  <Alert>{error.msg}</Alert>
                 </Alert>
                 <Link to="/SignUp" className="btn-warning createAccount">
                   Create Account
