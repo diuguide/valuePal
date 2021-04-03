@@ -4,10 +4,14 @@ import axios from 'axios';
 import Loader from "../../Loader";
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import { isLoading, username, isAuthenticated, authState } from "../../../features/auth/authSlice";
 
 
 const SignIn = () => {
   const history = useHistory();
+  const state = useSelector(authState);
+  console.log("authState: ", state);
   const [isLoading, setIsLoading] = useState(false);
   const [showError, setShowError] = useState(false);
   const [error, setError] = useState('');

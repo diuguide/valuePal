@@ -12,7 +12,7 @@ const Main = () => {
                     <Col>
                         <Row className="d-flex justify-content-center">
                             <Col>
-                                <ChartComponent />
+                                {/* <ChartComponent /> */}
                             </Col>
                         </Row>
                     </Col>
