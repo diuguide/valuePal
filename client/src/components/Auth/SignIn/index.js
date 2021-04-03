@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { isLoading, loggedIn, loggedOut, authState } from "../../../features/auth/authSlice";
-import { loginFailed, errorState } from "../../../features/error/errorSlice";
+import { loginFailed, errorState, clearErrors } from "../../../features/error/errorSlice";
 
 
 const SignIn = () => {
@@ -26,7 +26,7 @@ const SignIn = () => {
     const { name, value } = e.target;
     setLoginCreds({ ...loginCreds, [name]: value });
   }
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(isLoading());
@@ -34,6 +34,7 @@ const SignIn = () => {
       console.log(res);
       if (res.data.code === 200) {
         dispatch(loggedIn(loginCreds.username))
+        dispatch(clearErrors());
         history.push('/Main');
       } else if (res.data.code === 400) {
         dispatch(loginFailed());

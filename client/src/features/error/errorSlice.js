@@ -15,10 +15,18 @@ export const errorSlice = createSlice({
       state.msg = "Username already exists, please choose another.";
       state.show = true;
     },
+    clearErrors: (state) => {
+      state.msg = "";
+      state.show = false;
+    },
+    passwordFailed: (state) => {
+      state.msg = "Passwords do not match";
+      state.show = true;
+    },
   },
 });
 
-export const { loginFailed, usernameTaken } = errorSlice.actions;
+export const { loginFailed, usernameTaken, clearErrors, passwordFailed } = errorSlice.actions;
 
 export const errorState = (state) => state.error;
 

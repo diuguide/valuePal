@@ -1,14 +1,20 @@
 import { Form, Button, Col, Row, Container, Alert } from "react-bootstrap";
 import axios from "axios";
 import { useState } from "react";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import Loader from "../../Loader";
+import { usernameTaken, errorState, clearErrors, passwordFailed } from "../../../features/error/errorSlice";
+import { isLoading, isLoaded, authState } from "../../../features/auth/authSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const SignUp = () => {
   const history = useHistory();
-  const [isLoading, setIsLoading] = useState(false);
-  const [show, setShow] = useState(false);
-  const [error, setError] = useState('')
+
+  const auth = useSelector(authState);
+  const error = useSelector(errorState);
+
+  const dispatch = useDispatch();
+
   const [accountCreds, setAccountCreds] = useState({
     username: "",
     password: "",
@@ -20,24 +26,25 @@ const SignUp = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    setError('');
-    setShow(false);
+
+    dispatch(isLoading());
+    dispatch(clearErrors());
+
     if (accountCreds.password === accountCreds.passwordCheck) {
-      axios.post('/api/add', accountCreds).then(res => {
-        console.log(res)
+      axios.post("/api/add", accountCreds).then((res) => {
+        console.log(res);
         if (res.data.code === 300) {
-          setIsLoading(false);
-          setError('Email already taken, please use a different email');
-          setShow(true);
+          dispatch(isLoaded());
+          dispatch(usernameTaken());
         } else if (res.data.code === 200) {
-          history.push('/');
+          dispatch(clearErrors());
+          dispatch(isLoaded());
+          history.push("/");
         }
-        
       });
     } else {
-      setError('Passwords do not match');
-      setShow(true);
+      dispatch(passwordFailed());
+      dispatch(isLoaded())
     }
   };
   return (
@@ -86,12 +93,10 @@ const SignUp = () => {
                   type="submit"
                   block
                 >
-                  {isLoading ? (
-                    <Loader />
-                  ) : <div>Create</div>}
+                  {auth.isLoading ? <Loader /> : <div>Create</div>}
                 </Button>
-                <Alert show={show} variant="danger" className="mt-3">
-                  <Alert>{error}</Alert>
+                <Alert show={error.show} variant="danger" className="mt-3">
+                  <Alert>{error.msg}</Alert>
                 </Alert>
               </Form>
             </Col>

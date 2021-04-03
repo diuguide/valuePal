@@ -10,7 +10,10 @@ export const authSlice = createSlice({
   reducers: {
     isLoading: (state) => {
       state.isLoading = true;
-    },
+      },
+      isLoaded: (state) => {
+          state.isLoading = false;
+      },
     loggedIn: (state, action) => {
       state.isLoading = false;
       state.username = action.payload;
@@ -18,12 +21,13 @@ export const authSlice = createSlice({
     },
     loggedOut: (state) => {
       state.isLoading = false;
-      state.isAuthenticated = false;
+        state.isAuthenticated = false;
+        state.username = '';
     },
   },
 });
 
-export const { isLoading, loggedIn, loggedOut } = authSlice.actions;
+export const { isLoading, isLoaded, loggedIn, loggedOut } = authSlice.actions;
 
 export const authState = state => state.auth;
 

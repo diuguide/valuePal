@@ -1,6 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
 import NavBar from "./NavBar";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { authState } from "../../features/auth/authSlice";
 import ChartComponent from "./Charts";
 
