@@ -21,10 +21,12 @@ const SignIn = () => {
     username: '',
     password: ''
   });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginCreds({ ...loginCreds, [name]: value });
   }
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(isLoading());
