@@ -1,6 +1,6 @@
 const axios = require("axios");
 
-const apikey = "1X55VNO4OZDP1BS4";
+const apikey = "";
 
 const getInfo = async (symbol) => {
   let stockInfo = {
