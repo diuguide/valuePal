@@ -14,6 +14,7 @@ export const stockDataSlice = createSlice({
   reducers: {
     dataLoading: (state) => {
       state.dataLoading = true;
+      state.dataLoaded = false;
     },
     dataLoaded: (state) => {
       state.dataLoading = false;

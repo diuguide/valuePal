@@ -39,6 +39,7 @@ export const getInfo = async (symbol) => {
       high: 0,
       low: 0,
     },
+    outstanding: 0,
     bookValue: 0,
     eps: 0,
     psRatio: 0,
@@ -54,11 +55,12 @@ export const getInfo = async (symbol) => {
       stockInfo = {
         name: res.data.Name,
         tradedOn: res.data.Exchange,
-        marketCap: res.data.MarketCapitalization,
+        marketCap: new Intl.NumberFormat().format(res.data.MarketCapitalization),
         ytd: {
           high: res.data["52WeekHigh"],
           low: res.data["52WeekLow"],
         },
+        outstanding: new Intl.NumberFormat().format(res.data.SharesOutstanding),
         bookValue: res.data.BookValue,
         eps: res.data.BookValue,
         psRatio: res.data.PriceToSalesRatioTTM,
@@ -73,6 +75,7 @@ export const getInfo = async (symbol) => {
 export const getQuote = async (symbol) => {
   let quoteInfo = {
     price: 0,
+    open: 0,
     volume: 0,
     date: "",
     change: 0,
@@ -83,6 +86,7 @@ export const getQuote = async (symbol) => {
   await axios.get(query).then((res) => {
     quoteInfo = {
       price: res.data["Global Quote"]["05. price"],
+      open: res.data["Global Quote"]["02. open"],
       volume: res.data["Global Quote"]["06. volume"],
       date: res.data["Global Quote"]["07. latest trading day"],
       change: res.data["Global Quote"]["09. change"],

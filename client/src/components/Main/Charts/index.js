@@ -19,6 +19,7 @@ const ChartComponent = () => {
       options: {
         chart: {
           background: "#03071e",
+          width: 250
         },
         colors: ["#70e000"],
         grid: {
@@ -64,8 +65,8 @@ const ChartComponent = () => {
 
   return (
     <Container>
-      <Row className="d-flex justify-content-center">
-        <Col xs={9} md={6} lg={4}>
+      <Row className="d-flex justify-content-left">
+        <Col xs={12} md={8} lg={5}>
           {stockData.dataLoaded && (
             <Chart
               options={chartData.options}

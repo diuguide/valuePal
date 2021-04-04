@@ -13,19 +13,22 @@ const Main = () => {
       <>
         <NavBar />
         <Container fluid>
-          <Row className="bg-secondary" style={{ height: "100vh" }}>
-            <Col>
-              <Row className="d-flex justify-content-center">
-                <Col>
-                  <ChartComponent />
+          
+          <Row className="bg-secondary d-flex justify-content-center">
+            <Col lg={10}>
+              <Row className="bg-light">
+                <Col lg={5} >
+                  <StockQuote />
                 </Col>
                 <Col>
                   <StockInfo />
                 </Col>
-                <Col>
-                  <StockQuote />
-                </Col>
               </Row>
+            </Col>
+          </Row>
+          <Row className="bg-secondary d-flex justify-content-center">
+            <Col lg={10}>
+              <ChartComponent />
             </Col>
           </Row>
         </Container>
