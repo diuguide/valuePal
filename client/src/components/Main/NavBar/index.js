@@ -5,11 +5,12 @@ import { useHistory } from "react-router-dom";
 import { loggedOut } from "../../../features/auth/authSlice";
 import { clearErrors } from "../../../features/error/errorSlice";
 import { getDaily } from "../../../utilities/stockdata";
+import { dataLoaded, dataLoading, dataSet } from "../../../features/stockData/stockDataSlice";
 
 const NavBar = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [ticker, setTicker] = useState();
+  const [ticker, setTicker] = useState({symbol: ''});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,7 +19,12 @@ const NavBar = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    getDaily(ticker, 30).then(res => console.log("Stock Data from Search: ", res));
+    dispatch(dataLoading());
+    getDaily(ticker.symbol, 30).then(res => {
+      setTicker({ symbol: '' });
+      dispatch(dataLoaded());
+      dispatch(dataSet({ dates: res.dates, values: res.values }));
+    });
   }
 
   const handleLogout = () => {
@@ -39,9 +45,9 @@ const NavBar = () => {
         <Form inline>
           <FormControl
             type="text"
-            id="ticker"
-            name="ticker"
-            value={ticker}
+            id="symbol"
+            name="symbol"
+            value={ticker.symbol}
             onChange={handleChange}
             placeholder="Search"
             className="mr-sm-2" />

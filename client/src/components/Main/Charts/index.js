@@ -53,6 +53,7 @@ const ChartComponent = () => {
     <Container>
       <Row className="d-flex justify-content-center">
         <Col xs={9} md={6} lg={4}>
+          
           <Chart
             options={chart.options}
             series={chart.series}
