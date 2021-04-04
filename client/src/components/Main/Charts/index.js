@@ -76,9 +76,6 @@ const ChartComponent = () => {
           )}
           {stockData.dataLoading && <Loader />}
         </Col>
-        <Col xs={9} md={6} lg={4}>
-          {stockData.dataLoading && <Loader />}
-        </Col>
       </Row>
     </Container>
   );

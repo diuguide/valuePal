@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { loggedOut } from "../../../features/auth/authSlice";
 import { clearErrors } from "../../../features/error/errorSlice";
-import { getDaily } from "../../../utilities/stockdata";
+import { getDaily, getInfo, getQuote } from "../../../utilities/stockdata";
 import { dataLoaded, dataLoading, dataSet } from "../../../features/stockData/stockDataSlice";
 
 const NavBar = ({ updateChart, setUpdateChart }) => {
