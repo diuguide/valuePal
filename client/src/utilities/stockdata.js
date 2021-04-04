@@ -1,27 +1,29 @@
-const axios = require("axios");
+import axios from "axios";
 
-const apiKey = "1X55VNO4OZDP1BS4";
+const apiKey = process.env.REACT_APP_ALPHA_API;
 
-const getDaily = (symbol, lengthOfTime) => {
+export const getDaily = async (symbol, lengthOfTime) => {
+  let dataSet = {
+    values: [],
+    dates: [],
+  };
+
   const query = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&outputsize=compact&apikey=${apiKey}`;
-  axios
+
+  await axios
     .get(query)
     .then((response) => {
       let data = response.data["Time Series (Daily)"];
-      let keys = Object.keys(data);
-      let values = Object.values(data);
-      let openArray = [];
-      let dateArray = [];
+      let keys1 = Object.keys(data);
+      let values1 = Object.values(data);
+
       for (let i = 0; i < lengthOfTime; i++) {
-        dateArray.push(keys[i]);
+        dataSet.dates.push(keys1[i]);
       }
       for (i = 0; i < lengthOfTime; i++) {
-        openArray.push(values[i]["1. open"]);
+        dataSet.values.push(values1[i]["1. open"]);
       }
-      console.log("Open Array: ", openArray.reverse());
-      console.log("Date Array: ", dateArray.reverse());
     })
     .catch((err) => console.log(err));
+  return dataSet;
 };
-
-getDaily("GME", 60);
