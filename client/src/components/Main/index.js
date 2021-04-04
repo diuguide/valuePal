@@ -3,14 +3,15 @@ import NavBar from "./NavBar";
 import { useSelector } from "react-redux";
 import { authState } from "../../features/auth/authSlice";
 import ChartComponent from "./Charts";
+import { useState } from 'react';
 
 const Main = () => {
     const auth = useSelector(authState);
-
+  const [updateChart, setUpdateChart] = useState(false);
     if (auth.isAuthenticated) {
         return (
     <>
-      <NavBar />
+            <NavBar updateChart={updateChart} setUpdateChart={setUpdateChart} />
       <Container fluid>
         <Row className="bg-secondary" style={{ height: "100vh" }}>
           <Col>

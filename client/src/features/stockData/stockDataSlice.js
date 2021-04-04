@@ -8,7 +8,6 @@ export const stockDataSlice = createSlice({
     dates: [],
     values: [],
     ticker: "",
-    createdAt: "",
   },
   reducers: {
     dataLoading: (state) => {
@@ -22,7 +21,6 @@ export const stockDataSlice = createSlice({
       state.dates = action.payload.dates;
       state.values = action.payload.values;
       state.ticker = action.payload.ticker;
-      state.createdAt = action.payload.createdAt;
     },
   },
 });

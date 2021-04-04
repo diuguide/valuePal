@@ -7,7 +7,7 @@ import { clearErrors } from "../../../features/error/errorSlice";
 import { getDaily } from "../../../utilities/stockdata";
 import { dataLoaded, dataLoading, dataSet } from "../../../features/stockData/stockDataSlice";
 
-const NavBar = () => {
+const NavBar = ({ updateChart, setUpdateChart }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [ticker, setTicker] = useState({symbol: ''});
@@ -23,7 +23,8 @@ const NavBar = () => {
     getDaily(ticker.symbol, 30).then(res => {
       setTicker({ symbol: '' });
       dispatch(dataLoaded());
-      dispatch(dataSet({ dates: res.dates, values: res.values }));
+      dispatch(dataSet({ dates: res.dates, values: res.values, ticker: ticker.symbol.toUpperCase() }));
+      setUpdateChart(!updateChart);
     });
   }
 
