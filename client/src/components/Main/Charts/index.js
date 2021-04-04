@@ -8,11 +8,29 @@ const ChartComponent = () => {
     options: {
       chart: {
         background: "#03071e",
-        foreColor: "#70e000",
+      },
+      colors: ["#70e000"],
+      grid: {
+        show: true,
+        borderColor: "#8d99ae",
+        position: "back",
+        xaxis: {
+          lines: {
+            show: false,
+          },
+        },
+        yaxis: {
+          lines: {
+            show: true,
+          },
+        },
       },
       xaxis: {
         categories: [],
         labels: {
+          show: false,
+        },
+        axisTicks: {
           show: false,
         },
       },
@@ -27,7 +45,7 @@ const ChartComponent = () => {
     series: [
       {
         name: "series-1",
-        data: [1,2,3,4,5,6],
+        data: [1, 2, 3, 4, 5, 6],
       },
     ],
   });

@@ -1,8 +1,8 @@
 const axios = require("axios");
 
-const apiKey = "";
+const apiKey = "1X55VNO4OZDP1BS4";
 
-const getData = (symbol) => {
+const getDaily = (symbol, lengthOfTime) => {
   const query = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&outputsize=compact&apikey=${apiKey}`;
   axios
     .get(query)
@@ -12,16 +12,16 @@ const getData = (symbol) => {
       let values = Object.values(data);
       let openArray = [];
       let dateArray = [];
-      for (let i = 0; i < keys.length; i++) {
+      for (let i = 0; i < lengthOfTime; i++) {
         dateArray.push(keys[i]);
       }
-      for (i = 0; i < values.length; i++) {
+      for (i = 0; i < lengthOfTime; i++) {
         openArray.push(values[i]["1. open"]);
       }
-      console.log("Open Array: ", openArray.reverse()[99]);
+      console.log("Open Array: ", openArray.reverse());
       console.log("Date Array: ", dateArray.reverse());
     })
     .catch((err) => console.log(err));
 };
 
-getData("GME");
+getDaily("GME", 60);
