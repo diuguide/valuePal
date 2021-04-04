@@ -20,7 +20,7 @@ export const getDaily = async (symbol, lengthOfTime) => {
       for (let i = 0; i < lengthOfTime; i++) {
         dataSet.dates.push(keys1[i]);
       }
-      for (i = 0; i < lengthOfTime; i++) {
+      for (let i = 0; i < lengthOfTime; i++) {
         dataSet.values.push(values1[i]["1. open"]);
       }
     })
