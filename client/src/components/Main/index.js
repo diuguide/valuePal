@@ -15,7 +15,7 @@ const Main = () => {
         <Row className="bg-secondary" style={{ height: "100vh" }}>
           <Col>
             <Row className="d-flex justify-content-center">
-              <Col>{/* <ChartComponent /> */}</Col>
+              <Col><ChartComponent /></Col>
             </Row>
           </Col>
         </Row>

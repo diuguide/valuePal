@@ -1,69 +1,50 @@
-import { Row, Col, Button } from "react-bootstrap";
-import axios from "axios";
-import { useRef, useEffect } from "react";
+import { Container, Row, Col } from "react-bootstrap";
+import { useState } from "react";
 import Loading from "../../Loader";
-import ChartWrapper from "./wrapper";
+import Chart from "react-apexcharts";
 
 const ChartComponent = () => {
-
-    const chartData = useRef(null);
-    const loading = useRef(true);
-    
-    useEffect(() => {
-      
-    axios
-      .get(
-        `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=GME&outputsize=compact&apikey=${process.env.REACT_APP_ALPHA_API}`
-      )
-      .then((res) => {
-          let array = [];
-
-          let dataArray = Object.values(res.data["Time Series (Daily)"]);
-          for (let i = 30; i > 0; i--) {
-              array.push(parseFloat(dataArray[i]["4. close"]));
-          }
-
-          chartData.current = array;
-          console.log("array: ", array);
-        //   for (let i = 0; i < 30; i++) {
-        //       array
-        //   }
-        
-        // for (let i = 10; i < 30; i++) {
-        //   if (i === 10 || i === 11) {
-        //     array.push(
-        //       parseFloat(
-        //         res.data["Time Series (Daily)"][`2020-12-${i}`]["1. open"]
-        //       )
-        //     );
-        //   }
-        //   if (i >= 14 && i <= 18) {
-        //     array.push(
-        //       parseFloat(
-        //         res.data["Time Series (Daily)"][`2020-12-${i}`]["1. open"]
-        //       )
-        //     );
-        //   }
-        // }
-        // chartData.current = array[0];
-        // console.log("chart data: ", chartData);
-      });
-        loading.current = false;
-  });     
-    if (!loading) {
-     return (
-    <>
-          <Row>
-              
-              <Col style={{ height: "100vh" }}>{chartData && <ChartWrapper chartData={chartData} />} </Col>
-              
+  const [chart, setChart] = useState({
+    options: {
+      chart: {
+        background: "#03071e",
+        foreColor: "#70e000",
+      },
+      xaxis: {
+        categories: [],
+        labels: {
+          show: false,
+        },
+      },
+      yaxis: {
+        show: false,
+      },
+      stroke: {
+        curve: "smooth",
+        width: 1,
+      },
+    },
+    series: [
+      {
+        name: "series-1",
+        data: [1,2,3,4,5,6],
+      },
+    ],
+  });
+  return (
+    <Container>
+      <Row className="d-flex justify-content-center">
+        <Col xs={9} md={6} lg={4}>
+          <Chart
+            options={chart.options}
+            series={chart.series}
+            type="line"
+            width="100%"
+          />
+        </Col>
       </Row>
-    </>
+    </Container>
   );
-    } else {
-        return <div>Test</div>
-}
- 
 };
 
 export default ChartComponent;
