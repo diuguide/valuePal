@@ -1,16 +1,19 @@
-import { Container, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import Loader from "../../Loader";
+import { stockDataState } from "../../../features/stockData/stockDataSlice";
+import { useSelector } from "react-redux";
 
 const StockQuote = () => {
+  const stockData = useSelector(stockDataState);
   return (
-    <Container>
+    
       <Row className="d-flex justify-content-center">
         <Col xs={9} md={6} lg={4}>
-          {stockData.dataLoaded && <h1>test</h1>}
+              {stockData.dataLoaded && <h1>{stockData.quoteInfo.price}</h1>}
           {stockData.dataLoading && <Loader />}
         </Col>
       </Row>
-    </Container>
+    
   );
 };
 

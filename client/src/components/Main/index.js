@@ -5,15 +5,13 @@ import StockInfo from "./Info/Info";
 import { useSelector } from "react-redux";
 import { authState } from "../../features/auth/authSlice";
 import ChartComponent from "./Charts";
-import { useState } from "react";
 
 const Main = () => {
   const auth = useSelector(authState);
-  const [updateChart, setUpdateChart] = useState(false);
   if (auth.isAuthenticated) {
     return (
       <>
-        <NavBar updateChart={updateChart} setUpdateChart={setUpdateChart} />
+        <NavBar />
         <Container fluid>
           <Row className="bg-secondary" style={{ height: "100vh" }}>
             <Col>

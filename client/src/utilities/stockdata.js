@@ -46,7 +46,7 @@ export const getInfo = async (symbol) => {
     beta: 0,
   };
 
-  const query = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${symbol}&apikey=${apikey}`;
+  const query = `https://www.alphavantage.co/query?function=OVERVIEW&symbol=${symbol}&apikey=${apiKey}`;
 
   await axios
     .get(query)
@@ -70,7 +70,7 @@ export const getInfo = async (symbol) => {
   return stockInfo;
 };
 
-export const getQoute = async (symbol) => {
+export const getQuote = async (symbol) => {
   let quoteInfo = {
     price: 0,
     volume: 0,
@@ -78,7 +78,7 @@ export const getQoute = async (symbol) => {
     change: 0,
     changePer: 0,
   };
-  const query = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${apikey}`;
+  const query = `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${apiKey}`;
 
   await axios.get(query).then((res) => {
     quoteInfo = {

@@ -8,27 +8,8 @@ export const stockDataSlice = createSlice({
     dates: [],
     values: [],
     ticker: "",
-    stockInfo: {
-      name: "",
-      tradedOn: "",
-      marketCap: 0,
-      ytd: {
-        high: 0,
-        low: 0,
-      },
-      bookValue: 0,
-      eps: 0,
-      psRatio: 0,
-      pbrRatio: 0,
-      beta: 0,
-    },
-    quoteInfo: {
-      price: 0,
-      volume: 0,
-      date: "",
-      change: 0,
-      changePer: 0,
-    },
+    stockInfo: {},
+    quoteInfo: {},
   },
   reducers: {
     dataLoading: (state) => {
@@ -42,11 +23,18 @@ export const stockDataSlice = createSlice({
       state.dates = action.payload.dates;
       state.values = action.payload.values;
       state.ticker = action.payload.ticker;
+      
     },
+    dataSetInfo: (state, action) => {
+      state.stockInfo = action.payload.stockInfo;
+    },
+    dataSetQuote: (state, action) => {
+      state.quoteInfo = action.payload.quoteInfo;
+    }
   },
 });
 
-export const { dataLoading, dataLoaded, dataSet } = stockDataSlice.actions;
+export const { dataLoading, dataLoaded, dataSet, dataSetInfo, dataSetQuote } = stockDataSlice.actions;
 
 export const stockDataState = (state) => state.stockData;
 

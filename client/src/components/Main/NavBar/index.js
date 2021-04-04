@@ -5,9 +5,9 @@ import { useHistory } from "react-router-dom";
 import { loggedOut } from "../../../features/auth/authSlice";
 import { clearErrors } from "../../../features/error/errorSlice";
 import { getDaily, getInfo, getQuote } from "../../../utilities/stockdata";
-import { dataLoaded, dataLoading, dataSet } from "../../../features/stockData/stockDataSlice";
+import { dataLoaded, dataLoading, dataSet, dataSetInfo, dataSetQuote } from "../../../features/stockData/stockDataSlice";
 
-const NavBar = ({ updateChart, setUpdateChart }) => {
+const NavBar = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [ticker, setTicker] = useState({symbol: ''});
@@ -20,11 +20,21 @@ const NavBar = ({ updateChart, setUpdateChart }) => {
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(dataLoading());
+
+    getInfo(ticker.symbol).then(res => {
+      console.log("getinfo: ", res)
+      dispatch(dataSetInfo({ stockInfo: res }));
+    });
+
+    getQuote(ticker.symbol).then(res => {
+      console.log("get quote: ", res);
+      dispatch(dataSetQuote({ quoteInfo: res }));
+    });
+
     getDaily(ticker.symbol, 30).then(res => {
       setTicker({ symbol: '' });
       dispatch(dataLoaded());
       dispatch(dataSet({ dates: res.dates, values: res.values, ticker: ticker.symbol.toUpperCase() }));
-      setUpdateChart(!updateChart);
     });
   }
 
