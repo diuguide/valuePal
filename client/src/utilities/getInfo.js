@@ -1,36 +1,8 @@
-import axios from "axios";
+const axios = require("axios");
 
-const apiKey = process.env.REACT_APP_ALPHA_API;
+const apikey = "1X55VNO4OZDP1BS4";
 
-export const getDaily = async (symbol, lengthOfTime) => {
-  let dataSet = {
-    values: [],
-    dates: [],
-  };
-
-  const query = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${symbol}&outputsize=compact&apikey=${apiKey}`;
-
-  await axios
-    .get(query)
-    .then((response) => {
-      let data = response.data["Time Series (Daily)"];
-      let keys1 = Object.keys(data);
-      let values1 = Object.values(data);
-
-      for (let i = 0; i < lengthOfTime; i++) {
-        dataSet.dates.push(keys1[i]);
-      }
-      for (let i = 0; i < lengthOfTime; i++) {
-        dataSet.values.push(values1[i]["1. open"]);
-      }
-      dataSet.values = dataSet.values.reverse();
-      dataSet.dates = dataSet.dates.reverse();
-    })
-    .catch((err) => console.log(err));
-  return dataSet;
-};
-
-export const getInfo = async (symbol) => {
+const getInfo = async (symbol) => {
   let stockInfo = {
     name: "",
     tradedOn: "",
@@ -70,7 +42,9 @@ export const getInfo = async (symbol) => {
   return stockInfo;
 };
 
-export const getQoute = async (symbol) => {
+// getInfo("tsla").then((res) => console.log(res));
+
+const getQoute = async (symbol) => {
   let quoteInfo = {
     price: 0,
     volume: 0,
@@ -91,3 +65,5 @@ export const getQoute = async (symbol) => {
   });
   return quoteInfo;
 };
+
+getQoute("GME").then((res) => console.log(res));
