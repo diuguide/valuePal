@@ -10,34 +10,39 @@ const StockInfo = () => {
       <Col>
         {stockData.dataLoaded && (
           <>
-            <Row>
+            <Row className="pb-3">
               <Col>
                 <Row>
                   <Col>
                     <div className="open info">
-                      Open: {stockData.quoteInfo.open}
+                      <span>Open: </span>
+                      {stockData.quoteInfo.open}
                     </div>
                   </Col>
                 </Row>
                 <Row>
                   <Col>
                     <div className="fiftytwo info">
-                      52 Wk Range: {stockData.stockInfo.ytd.high}-
-                      {stockData.stockInfo.ytd.low}
+                      <span>52 Wk Range: </span>
+                      <div>
+                        ${stockData.stockInfo.ytd.high} - $
+                        {stockData.stockInfo.ytd.low}
+                      </div>
                     </div>
                   </Col>
                 </Row>
                 <Row>
                   <Col>
                     <div className="outstanding info">
-                      Shares Outstanding: {stockData.stockInfo.outstanding}
+                      <span>Shares Outstanding:</span>{" "}
+                      {stockData.stockInfo.outstanding}
                     </div>
                   </Col>
                 </Row>
                 <Row>
                   <Col>
                     <div className="marketcap info">
-                      Market Cap: {stockData.stockInfo.marketCap}
+                      <span>Market Cap: </span>${stockData.stockInfo.marketCap}
                     </div>
                   </Col>
                 </Row>
@@ -46,28 +51,31 @@ const StockInfo = () => {
                 <Row>
                   <Col>
                     <div className="eps info">
-                      EPS: {stockData.stockInfo.eps}
+                      <span>EPS: </span> {stockData.stockInfo.eps}
                     </div>
                   </Col>
                 </Row>
                 <Row>
                   <Col>
                     <div className="beta info">
-                      Beta: {stockData.stockInfo.beta}
+                      <span>Beta: </span>
+                      {stockData.stockInfo.beta}
                     </div>
                   </Col>
                 </Row>
                 <Row>
                   <Col>
                     <div className="psRatio info">
-                      PS Ratio: {stockData.stockInfo.psRatio}
+                      <span>P/S Ratio: </span>
+                      {stockData.stockInfo.psRatio}
                     </div>
                   </Col>
                 </Row>
                 <Row>
                   <Col>
                     <div className="pbRatio info">
-                      PB Ratio: {stockData.stockInfo.pbRatio}
+                      <span>P/B Ratio: </span>
+                      {stockData.stockInfo.pbRatio}
                     </div>
                   </Col>
                 </Row>

@@ -1,4 +1,4 @@
-import { Container, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import Loader from "../../Loader";
 import Chart from "react-apexcharts";
@@ -64,9 +64,9 @@ const ChartComponent = () => {
   };
 
   return (
-    <Container>
-      <Row className="d-flex justify-content-left">
-        <Col xs={12} md={8} lg={5}>
+    
+      <Row className="d-flex justify-content-left p-3">
+        <Col xs={12} md={6} lg={5}>
           {stockData.dataLoaded && (
             <Chart
               options={chartData.options}
@@ -78,7 +78,7 @@ const ChartComponent = () => {
           {stockData.dataLoading && <Loader />}
         </Col>
       </Row>
-    </Container>
+    
   );
 };
 

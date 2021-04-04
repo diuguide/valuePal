@@ -11,32 +11,35 @@ const StockQuote = () => {
         {stockData.dataLoaded && (
           <>
             <Row>
-              <Col>
-                <div className="name quote">{stockData.stockInfo.name}</div>
+              <Col className="p-3">
+                <Row>
+                  <Col>
+                    <div className="name quote">{stockData.stockInfo.name}</div>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <div className="tradedOn quote">
+                      {stockData.stockInfo.tradedOn}
+                    </div>
+                  </Col>
+                </Row>
               </Col>
-            </Row>
-            <Row>
               <Col>
-                <div className="tradedOn quote">
-                  {stockData.stockInfo.tradedOn}
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <div className="price quote">${stockData.quoteInfo.price}</div>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <div className="changePer quote">
-                  {stockData.quoteInfo.changePer}
-                </div>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <div className="date quote">{stockData.quoteInfo.date}</div>
+                <Row>
+                  <Col>
+                    <div className="price quote">
+                      ${stockData.quoteInfo.price}
+                    </div>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <div className="changePer quote">
+                      <span>Change: </span>{stockData.quoteInfo.changePer}
+                    </div>
+                  </Col>
+                </Row>
               </Col>
             </Row>
           </>

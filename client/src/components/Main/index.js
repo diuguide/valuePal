@@ -15,8 +15,8 @@ const Main = () => {
         <Container fluid>
           
           <Row className="bg-secondary d-flex justify-content-center">
-            <Col lg={10}>
-              <Row className="bg-light">
+            <Col lg={8}>
+              <Row className="bg-light m-3 p-2">
                 <Col lg={5} >
                   <StockQuote />
                 </Col>
@@ -27,7 +27,7 @@ const Main = () => {
             </Col>
           </Row>
           <Row className="bg-secondary d-flex justify-content-center">
-            <Col lg={10}>
+            <Col lg={8}>
               <ChartComponent />
             </Col>
           </Row>
