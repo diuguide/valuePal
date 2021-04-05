@@ -10,6 +10,8 @@ export const stockDataSlice = createSlice({
     ticker: "",
     stockInfo: {},
     quoteInfo: {},
+    watchListLoading: false,
+    watchListLoaded: false
   },
   reducers: {
     dataLoading: (state) => {
@@ -31,11 +33,19 @@ export const stockDataSlice = createSlice({
     },
     dataSetQuote: (state, action) => {
       state.quoteInfo = action.payload.quoteInfo;
+    },
+    watchListLoading: (state) => {
+      state.watchListLoading = true;
+      state.watchListLoaded = false;
+    },
+    watchListLoaded: (state) => {
+      state.watchListLoading = false;
+      state.watchListLoaded = true;
     }
   },
 });
 
-export const { dataLoading, dataLoaded, dataSet, dataSetInfo, dataSetQuote } = stockDataSlice.actions;
+export const { dataLoading, dataLoaded, dataSet, dataSetInfo, dataSetQuote, watchListLoaded, watchListLoading } = stockDataSlice.actions;
 
 export const stockDataState = (state) => state.stockData;
 
