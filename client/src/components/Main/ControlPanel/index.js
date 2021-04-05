@@ -28,7 +28,6 @@ const ControlPanel = () => {
     axios
       .post("watch/add", watchListData)
       .then((res) => {
-        console.log("watchlist response: ", res);
         dispatch(watchListLoaded());
       })
       .catch((err) => console.log(err));
