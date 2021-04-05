@@ -6,11 +6,11 @@ import { useSelector } from "react-redux";
 const StockInfo = () => {
   const stockData = useSelector(stockDataState);
   return (
-    <Row className="d-flex">
+    <Row className="d-flex bg-light">
       <Col>
         {stockData.dataLoaded && (
           <>
-            <Row className="pb-3">
+            <Row>
               <Col>
                 <Row>
                   <Col>
@@ -83,7 +83,13 @@ const StockInfo = () => {
             </Row>
           </>
         )}
-        {stockData.dataLoading && <Loader />}
+        {stockData.dataLoading && (
+          <Row>
+            <Col className="d-flex justify-content-center align-items-center">
+              <Loader />
+            </Col>
+          </Row>
+        )}
       </Col>
     </Row>
   );

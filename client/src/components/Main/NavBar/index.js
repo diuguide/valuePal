@@ -1,42 +1,54 @@
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
-import { useState } from 'react';
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { loggedOut } from "../../../features/auth/authSlice";
 import { clearErrors } from "../../../features/error/errorSlice";
 import { getDaily, getInfo, getQuote } from "../../../utilities/stockdata";
-import { dataLoaded, dataLoading, dataSet, dataSetInfo, dataSetQuote } from "../../../features/stockData/stockDataSlice";
+import {
+  dataLoaded,
+  dataLoading,
+  dataSet,
+  dataSetInfo,
+  dataSetQuote,
+} from "../../../features/stockData/stockDataSlice";
 
 const NavBar = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const [ticker, setTicker] = useState({symbol: ''});
+  const [ticker, setTicker] = useState({ symbol: "" });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setTicker({ ...ticker, [name]: value });
-  }
+  };
 
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(dataLoading());
 
-    getInfo(ticker.symbol).then(res => {
-      console.log("getinfo: ", res)
+    getInfo(ticker.symbol).then((res) => {
+      
       dispatch(dataSetInfo({ stockInfo: res }));
-    });
 
-    getQuote(ticker.symbol).then(res => {
-      console.log("get quote: ", res);
-      dispatch(dataSetQuote({ quoteInfo: res }));
+      return getQuote(ticker.symbol).then((res) => {
+        
+        dispatch(dataSetQuote({ quoteInfo: res }));
+        
+        return getDaily(ticker.symbol, 30).then((res) => {
+          setTicker({ symbol: "" });
+          dispatch(dataLoaded());
+          dispatch(
+            dataSet({
+              dates: res.dates,
+              values: res.values,
+              ticker: ticker.symbol.toUpperCase(),
+            })
+          );
+        });
+      });
     });
-
-    getDaily(ticker.symbol, 30).then(res => {
-      setTicker({ symbol: '' });
-      dispatch(dataLoaded());
-      dispatch(dataSet({ dates: res.dates, values: res.values, ticker: ticker.symbol.toUpperCase() }));
-    });
-  }
+  };
 
   const handleLogout = () => {
     dispatch(loggedOut());
@@ -61,8 +73,11 @@ const NavBar = () => {
             value={ticker.symbol}
             onChange={handleChange}
             placeholder="Search"
-            className="mr-sm-2" />
-          <Button onClick={handleClick} variant="outline-success">Search</Button>
+            className="mr-sm-2"
+          />
+          <Button onClick={handleClick} variant="outline-success">
+            Search
+          </Button>
         </Form>
       </Navbar.Collapse>
     </Navbar>

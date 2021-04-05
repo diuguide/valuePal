@@ -64,21 +64,25 @@ const ChartComponent = () => {
   };
 
   return (
-    
-      <Row className="d-flex justify-content-left p-3">
-        <Col xs={12} md={6} lg={5}>
-          {stockData.dataLoaded && (
-            <Chart
-              options={chartData.options}
-              series={chartData.series}
-              type="line"
-              width="100%"
-            />
-          )}
-          {stockData.dataLoading && <Loader />}
-        </Col>
-      </Row>
-    
+    <Row className="d-flex">
+      <Col>
+        {stockData.dataLoaded && (
+          <Chart
+            options={chartData.options}
+            series={chartData.series}
+            type="line"
+            width="100%"
+          />
+        )}
+        {stockData.dataLoading && (
+          <Row>
+            <Col className="d-flex justify-content-center align-items-center">
+              <Loader />
+            </Col>
+          </Row>
+        )}
+      </Col>
+    </Row>
   );
 };
 

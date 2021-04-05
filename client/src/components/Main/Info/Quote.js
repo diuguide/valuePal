@@ -6,12 +6,12 @@ import { useSelector } from "react-redux";
 const StockQuote = () => {
   const stockData = useSelector(stockDataState);
   return (
-    <Row className="d-flex">
+    <Row className="d-flex bg-light">
       <Col>
         {stockData.dataLoaded && (
           <>
             <Row>
-              <Col className="p-3">
+              <Col>
                 <Row>
                   <Col>
                     <div className="name quote">{stockData.stockInfo.name}</div>
@@ -36,7 +36,8 @@ const StockQuote = () => {
                 <Row>
                   <Col>
                     <div className="changePer quote">
-                      <span>Change: </span>{stockData.quoteInfo.changePer}
+                      <span>Change: </span>
+                      {stockData.quoteInfo.changePer}
                     </div>
                   </Col>
                 </Row>
@@ -44,7 +45,13 @@ const StockQuote = () => {
             </Row>
           </>
         )}
-        {stockData.dataLoading && <Loader />}
+        {stockData.dataLoading && (
+          <Row>
+            <Col className="d-flex justify-content-center align-items-center">
+              <Loader />
+            </Col>
+          </Row>
+        )}
       </Col>
     </Row>
   );

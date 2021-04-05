@@ -23,6 +23,7 @@ export const getDaily = async (symbol, lengthOfTime) => {
       for (let i = 0; i < lengthOfTime; i++) {
         dataSet.values.push(values1[i]["1. open"]);
       }
+      
       dataSet.values = dataSet.values.reverse();
       dataSet.dates = dataSet.dates.reverse();
     })
