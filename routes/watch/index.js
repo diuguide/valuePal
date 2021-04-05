@@ -19,4 +19,22 @@ router.post("/add", (req, res) => {
     .catch((err) => console.log(err));
 });
 
+router.post("/getList", async (req, res) => {
+  const { username } = req.body;
+  let dataArray = [];
+  try {
+    await pool.query("SELECT * FROM watchlist").then(res => {
+      let response = res.rows;
+      for (let i = 0; i < response.length; i++) {
+        if (response[i].username == username) {
+          dataArray.push(response[i]);
+        };
+      };
+    });
+    res.json(dataArray);
+  } catch (error) {
+    console.log(error);
+  }
+})
+
 module.exports = router;

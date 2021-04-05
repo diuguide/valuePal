@@ -34,21 +34,25 @@ const ControlPanel = () => {
       .catch((err) => console.log(err));
   };
   return (
-    <Row className="bg-light d-flex justify-content-center p-3">
-      <Col>
-        <Button onClick={handleSubmit} variant="secondary" type="submit">
-          {stockData.watchListLoading ? (
-            <Row>
-              <Col className="d-flex justify-content-center align-items-center">
-                <Loader />
-              </Col>
-            </Row>
-          ) : (
-            <div>Add to Watch List</div>
-          )}
-        </Button>
-      </Col>
-    </Row>
+    <>
+      {stockData.dataLoaded && (
+        <Row className="bg-light d-flex justify-content-center p-3">
+          <Col>
+            <Button onClick={handleSubmit} variant="secondary" type="submit">
+              {stockData.watchListLoading ? (
+                <Row>
+                  <Col className="d-flex justify-content-center align-items-center">
+                    <Loader />
+                  </Col>
+                </Row>
+              ) : (
+                <div>Add to Watch List</div>
+              )}
+            </Button>
+          </Col>
+        </Row>
+      )}
+    </>
   );
 };
 
