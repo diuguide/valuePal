@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require('cors');
 const routes = require('./routes/api');
+const watch = require('./routes/watch');
 require("dotenv").config();
 
 //Define Port
@@ -22,6 +23,7 @@ if (
 
 //connect routes
 app.use('/api', routes);
+app.use("/watch", watch);
 
 //Start the api server
 app.listen(port, () => {
