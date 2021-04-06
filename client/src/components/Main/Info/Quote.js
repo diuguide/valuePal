@@ -66,7 +66,7 @@ const StockQuote = () => {
                             </Col>
                           </Row>
                         ) : (
-                          <div>Add to Watch List</div>
+                          <div>Watch</div>
                         )}
                       </Button>
                     </Col>
