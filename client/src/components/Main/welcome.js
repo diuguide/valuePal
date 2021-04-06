@@ -10,7 +10,7 @@ const Main = () => {
     return (
       <>
           <Row className="d-flex justify-content-center">
-            <Col className="bg-light" lg={8}>
+            <Col className="bg-light p-3" lg={8}>
               <Row>
                 <Col>
                   <div className="welcome">
