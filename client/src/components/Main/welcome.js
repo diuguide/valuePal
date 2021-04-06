@@ -62,7 +62,7 @@ const Main = () => {
                   <div className="helpnotice">
                     <p>
                       There is currently a limit on the usage of our API so be
-                      gentle! Please to not search more than once in a minute.
+                      gentle! Please do not search more than once in a minute.
                       If you see any other bugs feel free to reach out to me at
                       everett.diuguid@gmail.com. The Github repository can be
                       found{" "}
