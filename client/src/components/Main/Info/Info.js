@@ -6,11 +6,11 @@ import { useSelector } from "react-redux";
 const StockInfo = () => {
   const stockData = useSelector(stockDataState);
   return (
-    <Row className="d-flex bg-light p-1 m-1">
+    <Row>
       <Col>
         {stockData.dataLoaded && (
           <>
-            <Row>
+            <Row  className="d-flex bg-light p-1 m-1">
               <Col>
                 <Row>
                   <Col>
