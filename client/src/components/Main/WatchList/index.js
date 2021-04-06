@@ -25,7 +25,7 @@ const WatchList = () => {
   return (
     <>
       {stockData.dataLoaded && (
-        <Row className="bg-light">
+        <Row className="bg-light p-1 m-1">
           <Col>
             <Row>
               <Col className="d-flex justify-content-center">

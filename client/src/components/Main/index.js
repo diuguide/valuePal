@@ -2,8 +2,9 @@ import { Container, Row, Col } from "react-bootstrap";
 import NavBar from "./NavBar";
 import StockQuote from "./Info/Quote";
 import StockInfo from "./Info/Info";
-import ControlPanel from './ControlPanel';
-import WatchList from './WatchList';
+import ControlPanel from "./ControlPanel";
+import WatchList from "./WatchList";
+import Welcome from "./welcome";
 import { useSelector } from "react-redux";
 import { authState } from "../../features/auth/authSlice";
 import ChartComponent from "./Charts";
@@ -20,7 +21,6 @@ const Main = () => {
               <Row>
                 <Col lg={6}>
                   <StockQuote />
-                  <ControlPanel />
                   <ChartComponent />
                 </Col>
                 <Col lg={6}>
@@ -28,6 +28,11 @@ const Main = () => {
                   <WatchList />
                 </Col>
               </Row>
+            </Col>
+          </Row>
+          <Row className="bg-secondary d-flex justify-content-center">
+            <Col>
+              <Welcome />
             </Col>
           </Row>
         </Container>

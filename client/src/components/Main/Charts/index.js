@@ -64,7 +64,7 @@ const ChartComponent = () => {
   };
 
   return (
-    <Row className="d-flex">
+    <Row className="d-flex p-2">
       <Col>
         {stockData.dataLoaded && (
           <Chart

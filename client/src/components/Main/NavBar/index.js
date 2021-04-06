@@ -48,6 +48,7 @@ const NavBar = () => {
         });
       });
     });
+    
   };
 
   const handleLogout = () => {
