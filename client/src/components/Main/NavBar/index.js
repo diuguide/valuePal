@@ -17,6 +17,14 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [ticker, setTicker] = useState({ symbol: "" });
+  const [waitMinute, setWaitMinute] = useState(false);
+
+  const waitOneMinute = () => {
+    setWaitMinute(true);
+    setTimeout(function () {
+      setWaitMinute(false);
+    }, 60000);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,16 +33,15 @@ const NavBar = () => {
 
   const handleClick = (e) => {
     e.preventDefault();
+    waitOneMinute();
     dispatch(dataLoading());
 
     getInfo(ticker.symbol).then((res) => {
-      
       dispatch(dataSetInfo({ stockInfo: res }));
 
       return getQuote(ticker.symbol).then((res) => {
-        
         dispatch(dataSetQuote({ quoteInfo: res }));
-        
+
         return getDaily(ticker.symbol, 30).then((res) => {
           setTicker({ symbol: "" });
           dispatch(dataLoaded());
@@ -48,7 +55,6 @@ const NavBar = () => {
         });
       });
     });
-    
   };
 
   const handleLogout = () => {
@@ -76,7 +82,11 @@ const NavBar = () => {
             placeholder="Search"
             className="mr-sm-2"
           />
-          <Button onClick={handleClick} variant="outline-success">
+          <Button
+            disabled={waitMinute}
+            onClick={handleClick}
+            variant="outline-success"
+          >
             Search
           </Button>
         </Form>
