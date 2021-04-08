@@ -50,6 +50,28 @@ const SignIn = () => {
       >
         <Col>
           <Row className="d-flex justify-content-center align-content-center">
+            <Col xs={10} md={6} lg={6}>
+              <div className="signupDesc">
+                <p>
+                  Welcome to ValuePal, a stock information and analysis tool. If
+                  you do not have an account please click{" "}
+                  <span>create account</span> to create an account, and then
+                  login here. If you would like to demo the site sign in with
+                  Username: Temp@valuePal.com and the password: password to see
+                  the layout and try out some of the features. The API we use is
+                  limited to only 1 search per minute so please be gentle with
+                  the webiste. Please reach out to me at{" "}
+                  <span>everett.diuguid@gmail.com</span> if you have any
+                  questions. If you would like to contribute to the project you
+                  can find the repository{" "}
+                  <a href="https://github.com/diuguide/valuePal">here.</a>{" "}
+                  Thanks for stopping by, we hope you enjoy the site!
+                </p>
+              </div>
+            </Col>
+          </Row>
+
+          <Row className="d-flex justify-content-center align-content-center">
             <Col xs={10} md={5} lg={4} className="m-2 bg-dark p-4">
               <Form>
                 <Form.Group>
@@ -72,10 +94,13 @@ const SignIn = () => {
                     placeholder="Password"
                   />
                 </Form.Group>
-                <Button onClick={handleSubmit} variant="primary" type="submit" block>
-                   {auth.isLoading ? (
-                    <Loader />
-                  ) : <div>Login</div>}
+                <Button
+                  onClick={handleSubmit}
+                  variant="primary"
+                  type="submit"
+                  block
+                >
+                  {auth.isLoading ? <Loader /> : <div>Login</div>}
                 </Button>
                 <Alert show={error.show} variant="danger" className="mt-3">
                   <Alert>{error.msg}</Alert>
