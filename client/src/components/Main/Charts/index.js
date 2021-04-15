@@ -38,7 +38,7 @@ const ChartComponent = () => {
           },
         },
         xaxis: {
-          categories: [],
+          categories: stockData.dates,
           labels: {
             show: false,
           },
@@ -56,7 +56,7 @@ const ChartComponent = () => {
       },
       series: [
         {
-          name: "series-1",
+          name: stockData.ticker,
           data: stockData.values,
         },
       ],
