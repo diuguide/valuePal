@@ -50,20 +50,25 @@ const SignIn = () => {
       >
         <Col>
           <Row className="d-flex justify-content-center align-content-center ">
-            <Col className="bg-light border border-rounded" xs={10} md={10} lg={10}>
+            <Col
+              className="bg-light border border-rounded"
+              xs={10}
+              md={10}
+              lg={10}
+            >
               <div className="signupDesc">
                 <p>
                   Welcome to ValuePal, a stock information and analysis tool. If
                   you do not have an account please click{" "}
                   <span>create account</span> to create an account, and then
                   login here. If you would like to demo the site sign in with
-                  Username: Temp@valuePal.com and the password: password to see
-                  the layout and try out some of the features. The API we use is
-                  limited to only 1 search per minute so please be gentle with
-                  the webiste. Please reach out to me at{" "}
-                  <span>everett.diuguid@gmail.com</span> if you have any
-                  questions. If you would like to contribute to the project you
-                  can find the repository{" "}
+                  Username: <span>Temp@valuePal.com</span> and the 
+                  password: <span>password</span> to see the layout and try out some of the
+                  features. The API we use is limited to only 1 search per
+                  minute so please be gentle with the webiste. Please reach out
+                  to me at <span>everett.diuguid@gmail.com</span> if you have
+                  any questions. If you would like to contribute to the project
+                  you can find the repository{" "}
                   <a href="https://github.com/diuguide/valuePal">here.</a>{" "}
                   Thanks for stopping by, we hope you enjoy the site!
                 </p>
