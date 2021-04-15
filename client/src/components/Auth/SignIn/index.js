@@ -49,8 +49,8 @@ const SignIn = () => {
         style={{ height: "100vh" }}
       >
         <Col>
-          <Row className="d-flex justify-content-center align-content-center">
-            <Col xs={10} md={6} lg={6}>
+          <Row className="d-flex justify-content-center align-content-center ">
+            <Col className="bg-light border border-rounded" xs={10} md={10} lg={10}>
               <div className="signupDesc">
                 <p>
                   Welcome to ValuePal, a stock information and analysis tool. If
