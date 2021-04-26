@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiKey = process.env.REACT_APP_ALPHA_API;
-
+// Get daily stock prices
 export const getDaily = async (symbol, lengthOfTime) => {
   let dataSet = {
     values: [],
