@@ -20,8 +20,8 @@ const Main = () => {
           <Col lg={8}>
             <Row>
               <Col>
-                <Alert show={error.show} variant="danger" className="mt-3">
-                  <Alert>{error.msg}</Alert>
+                <Alert style={{ height: "50px" }} show={error.show} variant="danger" className="mt-3">
+                  {error.msg}
                 </Alert>
               </Col>
             </Row>
