@@ -6,16 +6,29 @@ import WatchList from "./WatchList";
 import Welcome from "./welcome";
 import { useSelector } from "react-redux";
 import { authState } from "../../features/auth/authSlice";
+import {
+  setMessage,
+  errorState,
+  clearErrors
+} from "../../../features/error/errorSlice";
 import ChartComponent from "./Charts";
 
 const Main = () => {
   const auth = useSelector(authState);
+  const error = useSelector(errorState);
   return (
     <>
       <NavBar />
       <Container fluid>
         <Row className="bg-secondary d-flex justify-content-center">
           <Col lg={8}>
+            <Row>
+              <Col lg={6}>
+                <Alert show={error.show} variant="danger" className="mt-3">
+                  <Alert>{error.msg}</Alert>
+                </Alert>
+              </Col>
+            </Row>
             <Row>
               <Col lg={6}>
                 <StockQuote />
