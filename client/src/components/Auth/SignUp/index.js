@@ -34,7 +34,7 @@ const SignUp = ({ handleClose }) => {
   const showMessage = () => {
     setTimeout(function () {
       dispatch(clearErrors());
-    }, 10000);
+    }, 7000);
   };
 
   const handleChange = (e) => {
