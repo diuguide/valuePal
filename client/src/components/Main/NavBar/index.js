@@ -113,8 +113,8 @@ const NavBar = () => {
           </Button>
         </Form>
       </Navbar.Collapse>
-      <SignUpModal showSignUp={showSignUp} />
-      <SignInModal showSignIn={showSignIn} />
+      <SignUpModal showSignUp={showSignUp} setShowSignUp={setShowSignUp} />
+      <SignInModal showSignIn={showSignIn} setShowSignIn={setShowSignIn} />
     </Navbar>
   );
 };
