@@ -1,7 +1,6 @@
 import { Form, Button, Col, Row, Container, Alert } from "react-bootstrap";
 import axios from "axios";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
 import Loader from "../../Loader";
 import {
   usernameTaken,
@@ -18,8 +17,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 const SignUp = ({ handleClose }) => {
-  const history = useHistory();
-
+ 
   const auth = useSelector(authState);
   const error = useSelector(errorState);
 

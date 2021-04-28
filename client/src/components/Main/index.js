@@ -6,11 +6,7 @@ import WatchList from "./WatchList";
 import Welcome from "./welcome";
 import { useSelector } from "react-redux";
 import { authState } from "../../features/auth/authSlice";
-import {
-  setMessage,
-  errorState,
-  clearErrors
-} from "../../features/error/errorSlice";
+import { errorState } from "../../features/error/errorSlice";
 import ChartComponent from "./Charts";
 
 const Main = () => {
@@ -42,9 +38,7 @@ const Main = () => {
           </Col>
         </Row>
         <Row className="bg-secondary d-flex justify-content-center">
-          <Col>
-            <Welcome />
-          </Col>
+          <Col>{!auth.isAuthenticated && <Welcome />}</Col>
         </Row>
       </Container>
     </>

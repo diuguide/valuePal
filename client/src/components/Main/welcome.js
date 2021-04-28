@@ -1,11 +1,6 @@
-import { Container, Row, Col } from "react-bootstrap";
-import NavBar from "./NavBar";
-
-import { useSelector } from "react-redux";
-import { authState } from "../../features/auth/authSlice";
+import { Row, Col } from "react-bootstrap";
 
 const Welcome = () => {
-  const auth = useSelector(authState);
   return (
     <>
       <Row className="d-flex justify-content-center">

@@ -1,7 +1,6 @@
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { loggedOut } from "../../../features/auth/authSlice";
 import { clearErrors } from "../../../features/error/errorSlice";
 import { getDaily, getInfo, getQuote } from "../../../utilities/stockdata";
@@ -14,12 +13,16 @@ import {
 } from "../../../features/stockData/stockDataSlice";
 import SignUpModal from "../Modal/SignUp";
 import SignInModal from "../Modal/SignIn";
+import { authState } from "../../../features/auth/authSlice";
 
 const NavBar = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+
+  const auth = useSelector(authState);
+
   const [ticker, setTicker] = useState({ symbol: "" });
   const [waitMinute, setWaitMinute] = useState(false);
+
   const [showSignUp, setShowSignUp] = useState(false);
   const handleShowSignUp = () => setShowSignUp(true);
 
@@ -67,7 +70,7 @@ const NavBar = () => {
   const handleLogout = () => {
     dispatch(loggedOut());
     dispatch(clearErrors());
-    history.push("/");
+    window.location.reload();
   };
 
   const toggleSignUp = () => {
@@ -84,12 +87,16 @@ const NavBar = () => {
       <Navbar.Toggle className="bg-light" aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link className="text-light" onClick={toggleSignUp}>
-            Sign Up!
-          </Nav.Link>
-          <Nav.Link className="text-light" onClick={toggleLogin}>
-            Login
-          </Nav.Link>
+          {!auth.isAuthenticated && (
+            <>
+              <Nav.Link className="text-light" onClick={toggleSignUp}>
+                Sign Up!
+              </Nav.Link>
+              <Nav.Link className="text-light" onClick={toggleLogin}>
+                Login
+              </Nav.Link>
+            </>
+          )}
           <Nav.Link className="text-light" onClick={handleLogout}>
             Logout
           </Nav.Link>
