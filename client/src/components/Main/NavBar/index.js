@@ -68,6 +68,12 @@ const NavBar = () => {
       <Navbar.Toggle className="bg-light" aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
+          <Nav.Link className="text-light" onClick={toggleSignUp}>
+            Sign Up!
+          </Nav.Link>
+          <Nav.Link className="text-light" onClick={toggleLogin}>
+            Login
+          </Nav.Link>
           <Nav.Link className="text-light" onClick={handleLogout}>
             Logout
           </Nav.Link>
