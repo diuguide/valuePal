@@ -12,12 +12,15 @@ import {
   dataSetInfo,
   dataSetQuote,
 } from "../../../features/stockData/stockDataSlice";
+import Modal from "../Modal";
 
 const NavBar = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [ticker, setTicker] = useState({ symbol: "" });
   const [waitMinute, setWaitMinute] = useState(false);
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true);
 
   const waitOneMinute = () => {
     setWaitMinute(true);
@@ -62,6 +65,15 @@ const NavBar = () => {
     dispatch(clearErrors());
     history.push("/");
   };
+
+  const toggleSignUp = () => {
+    handleShow();
+  };
+
+  const toggleLogin = () => {
+    handleShow();
+  };
+
   return (
     <Navbar bg="dark" expand="lg">
       <Navbar.Brand className="text-success">ValuePal</Navbar.Brand>
@@ -97,6 +109,7 @@ const NavBar = () => {
           </Button>
         </Form>
       </Navbar.Collapse>
+      <Modal handleShow={handleShow} show={show} setShow={setShow} />
     </Navbar>
   );
 };
