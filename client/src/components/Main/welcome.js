@@ -24,7 +24,7 @@ const Main = () => {
                   </div>
                   <div className="instructions">
                     <p>
-                      You are already signed in so to use the site simply enter
+                      You are already signed in! Enter
                       a ticker symbol in the search bar at the top right and the
                       data will populate to the screen. More features will be on
                       the way, but for now the following options are available
