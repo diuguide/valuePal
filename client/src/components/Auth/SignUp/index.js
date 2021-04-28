@@ -3,8 +3,17 @@ import axios from "axios";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Loader from "../../Loader";
-import { usernameTaken, errorState, clearErrors, passwordFailed } from "../../../features/error/errorSlice";
-import { isLoading, isLoaded, authState } from "../../../features/auth/authSlice";
+import {
+  usernameTaken,
+  errorState,
+  clearErrors,
+  passwordFailed,
+} from "../../../features/error/errorSlice";
+import {
+  isLoading,
+  isLoaded,
+  authState,
+} from "../../../features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const SignUp = () => {
@@ -43,18 +52,15 @@ const SignUp = () => {
       });
     } else {
       dispatch(passwordFailed());
-      dispatch(isLoaded())
+      dispatch(isLoaded());
     }
   };
   return (
     <Container fluid>
-      <Row
-        className="bg-secondary d-flex justify-content-center align-content-center"
-        style={{ height: "100vh" }}
-      >
+      <Row className="d-flex justify-content-center align-content-center">
         <Col>
           <Row className="d-flex justify-content-center align-content-center">
-            <Col xs={10} md={5} lg={4} className="m-2 bg-dark p-4">
+            <Col className="bg-dark p-4">
               <Form>
                 <Form.Group>
                   <Form.Control

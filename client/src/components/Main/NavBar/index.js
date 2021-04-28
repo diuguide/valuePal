@@ -12,15 +12,19 @@ import {
   dataSetInfo,
   dataSetQuote,
 } from "../../../features/stockData/stockDataSlice";
-import Modal from "../Modal";
+import SignUpModal from "../Modal/SignUp";
+import SignInModal from "../Modal/SignIn";
 
 const NavBar = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [ticker, setTicker] = useState({ symbol: "" });
   const [waitMinute, setWaitMinute] = useState(false);
-  const [show, setShow] = useState(false);
-  const handleShow = () => setShow(true);
+  const [showSignUp, setShowSignUp] = useState(false);
+  const handleShowSignUp = () => setShowSignUp(true);
+
+  const [showSignIn, setShowSignIn] = useState(false);
+  const handleShowSignIn = () => setShowSignIn(true);
 
   const waitOneMinute = () => {
     setWaitMinute(true);
@@ -67,11 +71,11 @@ const NavBar = () => {
   };
 
   const toggleSignUp = () => {
-    handleShow();
+    handleShowSignUp();
   };
 
   const toggleLogin = () => {
-    handleShow();
+    handleShowSignIn();
   };
 
   return (
@@ -109,7 +113,8 @@ const NavBar = () => {
           </Button>
         </Form>
       </Navbar.Collapse>
-      <Modal handleShow={handleShow} show={show} setShow={setShow} />
+      <SignUpModal showSignUp={showSignUp} />
+      <SignInModal showSignIn={showSignIn} />
     </Navbar>
   );
 };
