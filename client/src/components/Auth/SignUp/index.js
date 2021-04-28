@@ -1,15 +1,23 @@
 import { Form, Button, Col, Row, Container, Alert } from "react-bootstrap";
 import axios from "axios";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
 import Loader from "../../Loader";
-import { usernameTaken, errorState, clearErrors, passwordFailed } from "../../../features/error/errorSlice";
-import { isLoading, isLoaded, authState } from "../../../features/auth/authSlice";
+import {
+  usernameTaken,
+  errorState,
+  clearErrors,
+  passwordFailed,
+  setMessage
+} from "../../../features/error/errorSlice";
+import {
+  isLoading,
+  isLoaded,
+  authState,
+} from "../../../features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const SignUp = () => {
-  const history = useHistory();
-
+const SignUp = ({ handleClose }) => {
+ 
   const auth = useSelector(authState);
   const error = useSelector(errorState);
 
@@ -20,6 +28,13 @@ const SignUp = () => {
     password: "",
     passwordCheck: "",
   });
+
+  const showMessage = () => {
+    setTimeout(function () {
+      dispatch(clearErrors());
+    }, 7000);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setAccountCreds({ ...accountCreds, [name]: value });
@@ -36,25 +51,23 @@ const SignUp = () => {
           dispatch(isLoaded());
           dispatch(usernameTaken());
         } else if (res.data.code === 200) {
-          dispatch(clearErrors());
+          dispatch(setMessage({ msg: `Account Created, Username: ${accountCreds.username}. Please Login.` }));
+          showMessage();
           dispatch(isLoaded());
-          history.push("/");
+          handleClose();
         }
       });
     } else {
       dispatch(passwordFailed());
-      dispatch(isLoaded())
+      dispatch(isLoaded());
     }
   };
   return (
     <Container fluid>
-      <Row
-        className="bg-secondary d-flex justify-content-center align-content-center"
-        style={{ height: "100vh" }}
-      >
+      <Row className="d-flex justify-content-center align-content-center">
         <Col>
           <Row className="d-flex justify-content-center align-content-center">
-            <Col xs={10} md={5} lg={4} className="m-2 bg-dark p-4">
+            <Col className="bg-dark p-4">
               <Form>
                 <Form.Group>
                   <Form.Control

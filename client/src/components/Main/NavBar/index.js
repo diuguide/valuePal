@@ -1,7 +1,6 @@
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { loggedOut } from "../../../features/auth/authSlice";
 import { clearErrors } from "../../../features/error/errorSlice";
 import { getDaily, getInfo, getQuote } from "../../../utilities/stockdata";
@@ -12,12 +11,23 @@ import {
   dataSetInfo,
   dataSetQuote,
 } from "../../../features/stockData/stockDataSlice";
+import SignUpModal from "../Modal/SignUp";
+import SignInModal from "../Modal/SignIn";
+import { authState } from "../../../features/auth/authSlice";
 
 const NavBar = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+
+  const auth = useSelector(authState);
+
   const [ticker, setTicker] = useState({ symbol: "" });
   const [waitMinute, setWaitMinute] = useState(false);
+
+  const [showSignUp, setShowSignUp] = useState(false);
+  const handleShowSignUp = () => setShowSignUp(true);
+
+  const [showSignIn, setShowSignIn] = useState(false);
+  const handleShowSignIn = () => setShowSignIn(true);
 
   const waitOneMinute = () => {
     setWaitMinute(true);
@@ -60,14 +70,33 @@ const NavBar = () => {
   const handleLogout = () => {
     dispatch(loggedOut());
     dispatch(clearErrors());
-    history.push("/");
+    window.location.reload();
   };
+
+  const toggleSignUp = () => {
+    handleShowSignUp();
+  };
+
+  const toggleLogin = () => {
+    handleShowSignIn();
+  };
+
   return (
     <Navbar bg="dark" expand="lg">
       <Navbar.Brand className="text-success">ValuePal</Navbar.Brand>
       <Navbar.Toggle className="bg-light" aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
+          {!auth.isAuthenticated && (
+            <>
+              <Nav.Link className="text-light" onClick={toggleSignUp}>
+                Sign Up!
+              </Nav.Link>
+              <Nav.Link className="text-light" onClick={toggleLogin}>
+                Login
+              </Nav.Link>
+            </>
+          )}
           <Nav.Link className="text-light" onClick={handleLogout}>
             Logout
           </Nav.Link>
@@ -91,6 +120,8 @@ const NavBar = () => {
           </Button>
         </Form>
       </Navbar.Collapse>
+      <SignUpModal showSignUp={showSignUp} setShowSignUp={setShowSignUp} />
+      <SignInModal showSignIn={showSignIn} setShowSignIn={setShowSignIn} />
     </Navbar>
   );
 };
