@@ -16,7 +16,7 @@ import {
 } from "../../../features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-const SignUp = () => {
+const SignUp = ({ handleClose }) => {
   const history = useHistory();
 
   const auth = useSelector(authState);
@@ -47,7 +47,7 @@ const SignUp = () => {
         } else if (res.data.code === 200) {
           dispatch(clearErrors());
           dispatch(isLoaded());
-          history.push("/");
+          handleClose();
         }
       });
     } else {

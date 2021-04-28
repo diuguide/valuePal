@@ -17,7 +17,7 @@ import {
   clearErrors,
 } from "../../../features/error/errorSlice";
 
-const SignIn = () => {
+const SignIn = ({ handleClose }) => {
   const history = useHistory();
 
   const auth = useSelector(authState);
@@ -42,7 +42,7 @@ const SignIn = () => {
       if (res.data.code === 200) {
         dispatch(loggedIn(loginCreds.username));
         dispatch(clearErrors());
-        history.push("/");
+        handleClose();
       } else if (res.data.code === 400) {
         dispatch(loginFailed());
         dispatch(loggedOut());
