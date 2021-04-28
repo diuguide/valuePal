@@ -8,6 +8,7 @@ import {
   errorState,
   clearErrors,
   passwordFailed,
+  setMessage
 } from "../../../features/error/errorSlice";
 import {
   isLoading,
@@ -29,6 +30,13 @@ const SignUp = ({ handleClose }) => {
     password: "",
     passwordCheck: "",
   });
+
+  const showMessage = () => {
+    setTimeout(function () {
+      dispatch(clearErrors());
+    }, 10000);
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setAccountCreds({ ...accountCreds, [name]: value });
@@ -45,7 +53,8 @@ const SignUp = ({ handleClose }) => {
           dispatch(isLoaded());
           dispatch(usernameTaken());
         } else if (res.data.code === 200) {
-          dispatch(clearErrors());
+          dispatch(setMessage({ msg: `Account Created, Username: ${accountCreds.username}. Please Login.` }));
+          showMessage();
           dispatch(isLoaded());
           handleClose();
         }

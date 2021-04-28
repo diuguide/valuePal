@@ -1,4 +1,4 @@
-import { Container, Row, Col } from "react-bootstrap";
+import { Alert, Container, Row, Col } from "react-bootstrap";
 import NavBar from "./NavBar";
 import StockQuote from "./Info/Quote";
 import StockInfo from "./Info/Info";
@@ -10,7 +10,7 @@ import {
   setMessage,
   errorState,
   clearErrors
-} from "../../../features/error/errorSlice";
+} from "../../features/error/errorSlice";
 import ChartComponent from "./Charts";
 
 const Main = () => {
@@ -23,7 +23,7 @@ const Main = () => {
         <Row className="bg-secondary d-flex justify-content-center">
           <Col lg={8}>
             <Row>
-              <Col lg={6}>
+              <Col>
                 <Alert show={error.show} variant="danger" className="mt-3">
                   <Alert>{error.msg}</Alert>
                 </Alert>

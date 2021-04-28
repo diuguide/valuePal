@@ -15,6 +15,7 @@ import {
   loginFailed,
   errorState,
   clearErrors,
+  setMessage
 } from "../../../features/error/errorSlice";
 
 const SignIn = ({ handleClose }) => {
@@ -35,13 +36,24 @@ const SignIn = ({ handleClose }) => {
     setLoginCreds({ ...loginCreds, [name]: value });
   };
 
+  const showMessage = () => {
+    setTimeout(function () {
+      dispatch(clearErrors());
+    }, 10000)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(isLoading());
     axios.post(`/api/login`, loginCreds).then((res) => {
       if (res.data.code === 200) {
         dispatch(loggedIn(loginCreds.username));
-        dispatch(clearErrors());
+        dispatch(
+          setMessage({
+            msg: `Logged In, Username: ${loginCreds.username}`,
+          })
+        );
+        showMessage();
         handleClose();
       } else if (res.data.code === 400) {
         dispatch(loginFailed());
