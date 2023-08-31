@@ -8,7 +8,7 @@ const devConfig = {
     port: 5432,
     database: process.env.DATABASE
 }
-
+// add a comment
 const proConfig = {
     connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false }
 }
