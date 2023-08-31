@@ -4,7 +4,7 @@ require("dotenv").config();
 const devConfig = {
     user: process.env.DATABASE_USER,
     password: process.env.DATABASE_PASSWORD,
-    host: 'localhost',
+    host: 'localhosttest',
     port: 5432,
     database: process.env.DATABASE
 }
